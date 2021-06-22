@@ -13,7 +13,7 @@ from datetime import datetime
 
 
 # The statespace
-states = ["Sleep","Icecream","Run"]
+states = ["Bike","Sailing","Run"]
 sentence = ["Subject", "Verb", "Object"]
 
 # Possible sequences of events
@@ -29,21 +29,21 @@ else: print("All is gonna be okay mrbacco, you should move on!! ;)")
 
 x = 3
 while x >=0:
-    num1 = rm.randrange(0,3)
+    num1 = rm.randrange(0,3) # picking a number randomly from 1 to 3
     # definition of the main model
-    def activity_forecast(days):
+    def activity_forecast(act):
         
         activityToday = states[num1] # Choose the starting state, randomly
         activityList = [activityToday]
         print("start activity is: ", activityToday)
         i = 0
         prob = 1
-        while i != days:
-            if activityToday == "Sleep":
+        while i != act:
+            if activityToday == "Bike":
                 change = np.random.choice(transitionName[0],replace=True,p=transitionMatrix[0])
                 if change == "SS":
                     prob = prob * 0.2
-                    activityList.append("Sleep")
+                    activityList.append("Bike")
                     pass
                 elif change == "SR":
                     prob = prob * 0.6
@@ -51,8 +51,8 @@ while x >=0:
                     activityList.append("Run")
                 else:
                     prob = prob * 0.2
-                    activityToday = "Icecream"
-                    activityList.append("Icecream")
+                    activityToday = "Sailing"
+                    activityList.append("Sailing")
             elif activityToday == "Run":
                 change = np.random.choice(transitionName[1],replace=True,p=transitionMatrix[1])
                 if change == "RR":
@@ -61,22 +61,22 @@ while x >=0:
                     pass
                 elif change == "RS":
                     prob = prob * 0.2
-                    activityToday = "Sleep"
-                    activityList.append("Sleep")
+                    activityToday = "Bike"
+                    activityList.append("Bike")
                 else:
                     prob = prob * 0.3
-                    activityToday = "Icecream"
-                    activityList.append("Icecream")
-            elif activityToday == "Icecream":
+                    activityToday = "Sailing"
+                    activityList.append("Sailing")
+            elif activityToday == "Sailing":
                 change = np.random.choice(transitionName[2],replace=True,p=transitionMatrix[2])
                 if change == "II":
                     prob = prob * 0.1
-                    activityList.append("Icecream")
+                    activityList.append("Sailing")
                     pass
                 elif change == "IS":
                     prob = prob * 0.2
-                    activityToday = "Sleep"
-                    activityList.append("Sleep")
+                    activityToday = "Bike"
+                    activityList.append("Bike")
                 else:
                     prob = prob * 0.7
                     activityToday = "Run"
@@ -102,7 +102,7 @@ while x >=0:
             # print("\n", states[num1])
             # print(count)
 
-    # Calculate the probability of starting from state:'Sleep' and ending at state:'Run'
+    # Calculate the probability of starting from state:'Bike' and ending at state:'Run'
     percentage = (count/1000) * 100
     print("\n", "The probability of starting at state: ", states[num1]," and ending at state: ", states[num1], " = " + str(percentage) + "%")
     now = str(datetime.now().replace(microsecond=0))
