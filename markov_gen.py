@@ -10,8 +10,6 @@ import random as rm
 import time
 from datetime import datetime
 
-
-
 # The statespace
 states = ["Bike","Sailing","Run"]
 sentence = ["Subject", "Verb", "Object"]
